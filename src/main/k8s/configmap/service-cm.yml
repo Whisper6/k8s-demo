@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: service-cfg
+  namespace: allen
+data:
+  # App port Configuration
+  appPort: '8080'
+
+  # Log Configuration
+  logLevel: WARN
+  feignClientLogLevel: WARN
+  springSecurityLogLevel: WARN
+  mysqlHibernateShowSql: 'false'
+  mysqlJpaShowSql: 'false'
+
+  # ELK Configuration
+  elkServiceDestination: elk
+
+  # Config Configuration
+  configLabel: allen
+  configProfile: allen
+
+  # JVM Configuration
+  JVM_OPTS: -Xmx1500m -Xms1500m
+
+  # Endpoint Configuration
+  springbootServiceEndpoint: http:8080//

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: docker-cfg
+  namespace: allen
+data:
+  TZ: Etc/GMT+0

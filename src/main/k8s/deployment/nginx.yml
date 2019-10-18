@@ -1,0 +1,44 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: nginx
+  namespace: allen
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:stable
+          env:
+            - name: TZ
+              value: Etc/GMT+0
+          ports:
+            - name: http
+              containerPort: 80
+            - name: https
+              containerPort: 443
+          volumeMounts:
+            - name: nginx-config
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+            - name: nginx-config
+              mountPath: /etc/nginx/conf.d/server.conf
+              subPath: server.conf
+#            - name: nginx-cert
+#              mountPath: /etc/nginx/cert/
+      volumes:
+        - name: nginx-config
+          configMap:
+            name: nginx-cfg
+#        - name: nginx-cert
+#          hostPath:
+#            path: /home/bimserver/k8s/deployment/cert

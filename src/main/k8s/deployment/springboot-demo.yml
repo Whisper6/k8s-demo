@@ -1,0 +1,29 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: springboot-demo
+  namespace: allen
+  labels:
+    app: springboot-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: springboot-demo
+  template:
+    metadata:
+      labels:
+        app: springboot-demo
+    spec:
+      containers:
+        - name: springboot-demo
+          image: registry.cn-shenzhen.aliyuncs.com/18616568207/springboot-demo:v1
+          envFrom:
+            - configMapRef:
+                name: docker-cfg
+            - configMapRef:
+                name: service-cfg
+#      imagePullSecrets:
+#        - name: docker-registry-secret
+      nodeSelector:
+        node: master
