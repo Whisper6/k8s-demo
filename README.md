@@ -72,3 +72,4 @@
 
 ##### 验证k8s是否安装成功
     kubectl get deploy,pod,svc -n kube-system
+<img src="https://github.com/Whisper6/k8s-demo/blob/master/md-image/result.png" />
