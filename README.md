@@ -73,3 +73,25 @@
 ##### 验证k8s是否安装成功
     kubectl get deploy,pod,svc -n kube-system
 <img src="https://github.com/Whisper6/k8s-demo/blob/master/md-image/result.png" />
+
+# docker镜像制作
+## dockerfile编写
+### 1. 拉取基础镜像
+    FROM  centos:7 #使用centos7作为基础镜像
+### 2. 上传jdk并解压到指定目录
+    ADD ./jdk-8u191-linux-x64.tar.gz /usr/local/ #将jdk8上传到镜像并解压到指定目录
+### 3. 配置java环境
+    ENV JAVA_HOME /usr/local/jdk1.8.0_191
+    ENV CLASSPATH $JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+    ENV PATH $PATH:$JAVA_HOME/bin
+### 4. 打包项目jar包
+    mvn clean package # jar包在target目录下
+### 4. 上传项目jar包
+    COPY ./demo-0.0.1-SNAPSHOT.jar /usr/local/demo-0.0.1-SNAPSHOT.jar
+### 5. 运行，并暴露端口
+    CMD ["java","-jar","/usr/local/demo-0.0.1-SNAPSHOT.jar",">" ,"log.log","&"] 
+    EXPOSE  8080
+### 6.在dockerfile所在目录下执行命令，制作镜像
+    docker build -t .
+### 7. 将镜像托管到阿里云，托管后的地址为（相关方法请参考docker官方文档，上传镜像部分）
+    registry.cn-shenzhen.aliyuncs.com/18616568207/springboot-demo:v1
