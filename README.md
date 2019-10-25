@@ -95,3 +95,16 @@
     docker build -t .
 ### 7. 将镜像托管到阿里云，托管后的地址为（相关方法请参考docker官方文档，上传镜像部分）
     registry.cn-shenzhen.aliyuncs.com/18616568207/springboot-demo:v1
+
+# k8s容器上传运行管理
+## 创建一个namespace
+   k8s文件夹中allen.yml为创建的namespace文件，包含namesapce版本，名称等信息
+## 创建service
+   参考k8s中nginx服务，spingboot-demo服务的yml文件编写，在nginx服务中绑定本机ip
+## 创建deployment
+   参考k8s文件夹中具体的创建参数设置，副本数都设置为1
+## 启动相关节点
+    kubectl apply -f ./k8s/namespace
+    kubectl apply -f ./k8s/service
+    kubectl apply -f ./k8s/configmap
+    kubectl apply -f ./k8s/deployment
